@@ -17,10 +17,34 @@ import {
   LinkedinLogoIcon,
   TwitterLogoIcon,
   Circle,
+  DownloadSimpleIcon,
 } from "@phosphor-icons/react";
 import { Code2Icon } from "lucide-react";
+import axios from "axios";
 
 export default function Hero() {
+  const handleResumeDownload = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/resume`, {
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(response.data);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "vishal-borle-resume.pdf";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Failed to download resume:", error);
+    }
+  };
+
   return (
     <section id="about" className="pt-14 sm:pt-20 space-y-12">
       {/* Name + headline */}
@@ -58,7 +82,7 @@ export default function Hero() {
         <div className="flex items-center gap-1.5 text-muted-foreground">
           <Stack size={12} />
           <span className="text-xs uppercase tracking-widest">
-            Software &amp; DevOps Engineer
+            Software Eng. | DevOps Eng.
           </span>
         </div>
       </div>
@@ -81,13 +105,11 @@ export default function Hero() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-8 text-xs gap-1.5"
-                  asChild
+                  className="w-fit gap-1.5 text-xs"
+                  onClick={handleResumeDownload}
                 >
-                  <a href="/resume.pdf" download>
-                    <DownloadSimple size={12} />
-                    Download Resume
-                  </a>
+                  <DownloadSimpleIcon size={12} />
+                  Download Resume
                 </Button>
               </TooltipTrigger>
               <TooltipContent>

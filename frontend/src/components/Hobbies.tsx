@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,9 +9,31 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { MusicNote } from "@phosphor-icons/react";
-import { hobbies, spotifyTrack } from "../data/data";
+import { hobbies } from "../data/data";
+import { useEffect, useState } from "react";
+import type { SpotifyTrack } from "@/types/portfolio";
 
 export default function Hobbies() {
+  const [spotifyTrack, setSpotifyTrack] = useState<SpotifyTrack | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSpotifyTrack = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:3000/spotify-track");
+
+        setSpotifyTrack(response.data);
+      } catch (error) {
+        console.error("Failed to fetch Spotify track:", error);
+        setSpotifyTrack(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSpotifyTrack();
+  }, []);
+
   return (
     <section id="hobbies" className="space-y-8">
       <div className="space-y-1">
@@ -71,43 +94,69 @@ export default function Hobbies() {
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              Sign guestbook →
+              Ping Me →
             </Button>
           </CardContent>
         </Card>
 
         {/* Spotify card */}
-        <Card className="overflow-hidden">
+        <Card className="overflow-hidden flex flex-col">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-[#1DB954] flex items-center justify-center shrink-0">
                 <MusicNote size={10} className="text-black" />
               </span>
-              <CardTitle className="text-sm">Last Played</CardTitle>
+              <CardTitle className="text-sm">Spotify Activity</CardTitle>
             </div>
           </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="space-y-0.5">
-              <p className="text-xs font-medium">{spotifyTrack.song}</p>
-              <p className="text-[10px] text-muted-foreground">
-                {spotifyTrack.artist} · {spotifyTrack.album}
+
+          <CardContent className="flex-1 flex flex-col justify-center space-y-3">
+            {loading && (
+              <p className="text-xs text-muted-foreground animate-pulse py-4 text-center">
+                Loading Spotify activity...
               </p>
-            </div>
-            <a
-              href={spotifyTrack.url}
-              target="_blank"
-              rel="noreferrer"
-              className="block rounded-lg overflow-hidden border hover:opacity-75 transition-opacity duration-150"
-            >
-              <img
-                src={spotifyTrack.cover}
-                alt={spotifyTrack.album}
-                className="w-full object-cover aspect-square"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = "none";
-                }}
-              />
-            </a>
+            )}
+
+            {!loading && !spotifyTrack && (
+              <p className="text-xs text-muted-foreground py-4 text-center">
+                Offline or no track found.
+              </p>
+            )}
+
+            {!loading && spotifyTrack && (
+              <>
+                <div className="space-y-0.5">
+                  <p className="text-xs font-medium line-clamp-1">
+                    {spotifyTrack.song}
+                  </p>
+
+                  <p className="text-[10px] text-muted-foreground line-clamp-1">
+                    {spotifyTrack.artist} · {spotifyTrack.album}
+                  </p>
+
+                  {spotifyTrack.nowPlaying && (
+                    <p className="text-[10px] text-green-500 font-medium">
+                      Now Playing
+                    </p>
+                  )}
+                </div>
+
+                {spotifyTrack.cover && (
+                  <a
+                    href={spotifyTrack.url ?? "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block rounded-lg overflow-hidden border hover:opacity-75 transition-opacity duration-150"
+                  >
+                    <img
+                      src={spotifyTrack.cover}
+                      alt={spotifyTrack.album}
+                      className="w-full object-cover aspect-square"
+                    />
+                  </a>
+                )}
+              </>
+            )}
           </CardContent>
         </Card>
       </div>

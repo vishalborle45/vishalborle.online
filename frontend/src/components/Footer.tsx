@@ -27,15 +27,15 @@ export default function Footer() {
               <div className="space-y-4">
                 <Button
                   variant="ghost"
-                  className="px-0 text-2xl font-black tracking-tighter hover:bg-transparent h-auto"
+                  className="px-0 text-base font-black tracking-tighter hover:bg-transparent h-auto"
                   onClick={() =>
                     window.scrollTo({ top: 0, behavior: "smooth" })
                   }
                 >
-                  Vishal
+                  Being an Engineer
                 </Button>
-                <p className="text-xs text-muted-foreground leading-relaxed max-w-[220px]">
-                  Continuously exploring, building, and adapting to new
+                <p className="text-xs text-muted-foreground leading-relaxed max-w-55">
+                  Continuously exploring,Learning, building, and adapting to new
                   technologies.
                 </p>
               </div>

@@ -1,61 +1,11 @@
-export interface Skill {
-  name: string;
-  category:
-    | "Frontend"
-    | "Backend"
-    | "DevOps"
-    | "Languages"
-    | "Tools"
-    | "Computer Science"
-    | "Databases";
-}
-
-export interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-  year: string;
-  status: "Live" | "Archived";
-  sourceHref?: string;
-  liveHref?: string;
-  architectureHref?: string;
-}
-
-export interface ExperienceItem {
-  role: string;
-  company: string;
-  period: string;
-  desc: string;
-}
-
-export interface Stat {
-  label: string;
-  value: string;
-}
-
-export interface Hobby {
-  label: string;
-  emoji: string;
-}
-
-export interface SpotifyTrack {
-  song: string;
-  artist: string;
-  album: string;
-  cover: string;
-  url: string;
-}
-
-export interface FooterLink {
-  label: string;
-  href: string;
-  external?: boolean;
-}
-
-export interface FooterCol {
-  heading: string;
-  links: FooterLink[];
-}
+import type {
+  ExperienceItem,
+  FooterCol,
+  Hobby,
+  Project,
+  Skill,
+  Stat,
+} from "@/types/portfolio";
 
 export const skills: Skill[] = [
   // Frontend
@@ -126,7 +76,7 @@ export const skillGroups: Skill["category"][] = [
 
 export const projects: Project[] = [
   {
-    title: "Online Judge Platform",
+    title: "Online Coding Platform",
     description:
       "Distributed code execution platform built with Spring Boot and RabbitMQ. Supports asynchronous code execution through scalable worker nodes, secure sandboxing, test case evaluation, and real-time submission tracking.",
     tags: ["Java", "Spring Boot", "RabbitMQ", "PostgreSQL", "Docker", "Redis"],
@@ -193,14 +143,6 @@ export const hobbies: Hobby[] = [
   { label: "Music", emoji: "🎧" },
   { label: "Calisthenics", emoji: "🏋️" },
 ];
-
-export const spotifyTrack: SpotifyTrack = {
-  song: "Gulabi Aankhen",
-  artist: "SANAM",
-  album: "Universally SANAM",
-  cover: "https://i.scdn.co/image/ab67616d0000b273e8b066f70c206551210d902b",
-  url: "https://open.spotify.com/",
-};
 
 export const footerNav: FooterCol[] = [
   {

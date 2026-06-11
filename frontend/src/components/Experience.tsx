@@ -2,10 +2,37 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { DownloadSimple, Briefcase } from "@phosphor-icons/react";
+import {
+  DownloadSimple,
+  Briefcase,
+  DownloadSimpleIcon,
+} from "@phosphor-icons/react";
 import { experience } from "../data/data";
+import axios from "axios";
 
 export default function Experience() {
+  const handleResumeDownload = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/resume`, {
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(response.data);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "vishal-borle-resume.pdf";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Failed to download resume:", error);
+    }
+  };
+
   return (
     <section id="experience" className="space-y-8">
       <div className="space-y-1">
@@ -21,7 +48,10 @@ export default function Experience() {
             <div className="py-5 grid grid-cols-1 sm:grid-cols-[1fr_160px] gap-2 sm:gap-6">
               <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
-                  <Briefcase size={12} className="text-muted-foreground shrink-0" />
+                  <Briefcase
+                    size={12}
+                    className="text-muted-foreground shrink-0"
+                  />
                   <span className="text-sm font-semibold">{e.role}</span>
                 </div>
                 <div className="pl-5">
@@ -60,12 +90,10 @@ export default function Experience() {
             size="sm"
             variant="outline"
             className="w-fit gap-1.5 text-xs"
-            asChild
+            onClick={handleResumeDownload}
           >
-            <a href="/resume.pdf" download>
-              <DownloadSimple size={12} />
-              Download PDF
-            </a>
+            <DownloadSimpleIcon size={12} />
+            Download PDF
           </Button>
         </CardContent>
       </Card>

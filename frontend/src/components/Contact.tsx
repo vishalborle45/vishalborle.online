@@ -12,6 +12,7 @@ import {
   LinkedinLogo,
   CheckCircle,
 } from "@phosphor-icons/react";
+import axios from "axios";
 
 interface ContactLink {
   label: string;
@@ -61,21 +62,45 @@ export default function Contact() {
   });
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
 
   const update =
     (field: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setBusy(true);
-    setTimeout(() => {
-      setSent(true);
+
+    try {
+      setBusy(true);
+      setError("");
+
+      const response = await axios.post(`http://localhost:3000/contact`, {
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      });
+
+      if (response.data.success) {
+        setSent(true);
+
+        setForm({
+          name: "",
+          email: "",
+          message: "",
+        });
+
+        setTimeout(() => {
+          setSent(false);
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      setError("Failed to send message. Please try again.");
+    } finally {
       setBusy(false);
-      setForm({ name: "", email: "", message: "" });
-    }, 800);
-    setTimeout(() => setSent(false), 5000);
+    }
   };
 
   return (
@@ -89,6 +114,13 @@ export default function Contact() {
           Open to full-time roles, contract work, and interesting problems.
         </p>
       </div>
+
+      {error && (
+        <Alert variant="destructive">
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-[1fr_1.6fr] gap-8 sm:gap-14">
         {/* Links */}

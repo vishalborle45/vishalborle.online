@@ -4,9 +4,6 @@ import { Separator } from "@/components/ui/separator";
 import { projects } from "../data/data";
 import {
   ArrowUpRight,
-  GithubLogo,
-  TreeStructure,
-  Play,
   GithubLogoIcon,
   TreeStructureIcon,
 } from "@phosphor-icons/react";

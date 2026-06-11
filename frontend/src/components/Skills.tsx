@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { skills, skillGroups, type Skill } from "../data/data";
+import { skills, skillGroups } from "../data/data";
+import type { Skill } from "@/types/portfolio";
 
 const groupMeta: Record<
   Skill["category"],
