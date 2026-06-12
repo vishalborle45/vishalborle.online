@@ -34,6 +34,7 @@ COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 # Copy compiled JavaScript code from the dist folder
 COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/public ./public
 
 # Copy package.json to reference runtime script targets
 COPY --from=builder /usr/src/app/package*.json ./
