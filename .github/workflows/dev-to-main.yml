@@ -34,6 +34,7 @@ jobs:
         with:
           context: ./frontend
           push: true
+          build-args: VITE_API_URL=https://api.vishalborle.online
           platforms: linux/amd64,linux/arm64
           tags: ${{ secrets.DOCKER_USER }}/frontend-vishalborle:latest
           cache-from: type=gha
@@ -70,7 +71,6 @@ jobs:
             docker run -d \
               --name frontend \
               --restart unless-stopped \
-              -e VITE_API_URL="https://api.vishalborle.online" \
               -p 127.0.0.1:5000:80 \
               ${{ secrets.DOCKER_USER }}/frontend-vishalborle:latest
 
