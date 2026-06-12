@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -10,7 +9,6 @@ import {
 } from "@/components/ui/tooltip";
 import { stats } from "../data/data";
 import {
-  DownloadSimple,
   MapPin,
   Stack,
   GithubLogoIcon,

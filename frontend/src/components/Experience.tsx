@@ -2,11 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import {
-  DownloadSimple,
-  Briefcase,
-  DownloadSimpleIcon,
-} from "@phosphor-icons/react";
+import { BriefcaseIcon, DownloadSimpleIcon } from "@phosphor-icons/react";
 import { experience } from "../data/data";
 import axios from "axios";
 
@@ -48,7 +44,7 @@ export default function Experience() {
             <div className="py-5 grid grid-cols-1 sm:grid-cols-[1fr_160px] gap-2 sm:gap-6">
               <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
-                  <Briefcase
+                  <BriefcaseIcon
                     size={12}
                     className="text-muted-foreground shrink-0"
                   />
