@@ -18,17 +18,14 @@ import {
   DownloadSimpleIcon,
 } from "@phosphor-icons/react";
 import { Code2Icon } from "lucide-react";
-import axios from "axios";
+import api from "@/api";
 
 export default function Hero() {
   const handleResumeDownload = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/resume`,
-        {
-          responseType: "blob",
-        },
-      );
+      const response = await api.get("/resume", {
+        responseType: "blob",
+      });
 
       const url = window.URL.createObjectURL(response.data);
 

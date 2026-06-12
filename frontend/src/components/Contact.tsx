@@ -12,7 +12,7 @@ import {
   LinkedinLogo,
   CheckCircle,
 } from "@phosphor-icons/react";
-import axios from "axios";
+import api from "@/api";
 
 interface ContactLink {
   label: string;
@@ -76,14 +76,11 @@ export default function Contact() {
       setBusy(true);
       setError("");
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/contact`,
-        {
-          name: form.name,
-          email: form.email,
-          message: form.message,
-        },
-      );
+      const response = await api.post("/contact", {
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      });
 
       if (response.data.success) {
         setSent(true);

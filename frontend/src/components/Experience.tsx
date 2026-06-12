@@ -4,17 +4,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { BriefcaseIcon, DownloadSimpleIcon } from "@phosphor-icons/react";
 import { experience } from "../data/data";
-import axios from "axios";
+import api from "@/api";
 
 export default function Experience() {
   const handleResumeDownload = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/resume`,
-        {
-          responseType: "blob",
-        },
-      );
+      const response = await api.get("/resume", {
+        responseType: "blob",
+      });
 
       const url = window.URL.createObjectURL(response.data);
 

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +11,7 @@ import { MusicNote } from "@phosphor-icons/react";
 import { hobbies } from "../data/data";
 import { useEffect, useState } from "react";
 import type { SpotifyTrack } from "@/types/portfolio";
+import api from "@/api";
 
 export default function Hobbies() {
   const [spotifyTrack, setSpotifyTrack] = useState<SpotifyTrack | null>(null);
@@ -20,9 +20,7 @@ export default function Hobbies() {
   useEffect(() => {
     const fetchSpotifyTrack = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/spotify-track`,
-        );
+        const response = await api.get("/spotify-track");
 
         setSpotifyTrack(response.data);
       } catch (error) {
