@@ -9,9 +9,12 @@ import axios from "axios";
 export default function Experience() {
   const handleResumeDownload = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/resume`, {
-        responseType: "blob",
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/resume`,
+        {
+          responseType: "blob",
+        },
+      );
 
       const url = window.URL.createObjectURL(response.data);
 

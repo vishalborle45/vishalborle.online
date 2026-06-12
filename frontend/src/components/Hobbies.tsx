@@ -20,7 +20,9 @@ export default function Hobbies() {
   useEffect(() => {
     const fetchSpotifyTrack = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/spotify-track");
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/spotify-track`,
+        );
 
         setSpotifyTrack(response.data);
       } catch (error) {
