@@ -11,11 +11,14 @@ router.get("/", (_req, res) => {
     "user-read-recently-played",
   ].join(" ");
 
+  console.log("id : " + env.SPOTIFY_CLIENT_ID);
+  console.log("url : " + env.SPOTIFY_REDIRECT_URI);
+
   const url =
     "https://accounts.spotify.com/authorize?" +
     qs.stringify({
       response_type: "code",
-      client_id: env.SPOTIFY_CLIENT_SECRET,
+      client_id: env.SPOTIFY_CLIENT_ID,
       scope,
       redirect_uri: env.SPOTIFY_REDIRECT_URI,
     });
