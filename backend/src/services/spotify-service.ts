@@ -7,10 +7,7 @@ function assertEnv(name: string, value: string | undefined) {
 }
 
 async function getAccessToken(): Promise<string> {
-  const clientId = assertEnv(
-    "SPOTIFY_CLIENT_ID",
-    env.SPOTIFY_CLIENT_SECRET,
-  );
+  const clientId = assertEnv("SPOTIFY_CLIENT_ID", env.SPOTIFY_CLIENT_ID);
   const clientSecret = assertEnv(
     "SPOTIFY_CLIENT_SECRET",
     env.SPOTIFY_CLIENT_SECRET,

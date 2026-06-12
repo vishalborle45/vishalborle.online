@@ -7,7 +7,6 @@ import contactRoutes from "./routes/contact-routes.js";
 import resumeRoutes from "./routes/resume-routes.js";
 import loginRoutes from "./routes/login-routes.js";
 import callbackRoutes from "./routes/callback-routes.js";
-import { simpleAuth } from "./middleware/auth-middleware.js";
 import env from "./config/env.js";
 dotenv.config();
 
@@ -32,7 +31,7 @@ app.get("/health", (_req, res) => {
 });
 
 app.use("/callback", callbackRoutes);
-app.use("/login", simpleAuth, loginRoutes);
+app.use("/login", loginRoutes);
 app.use("/spotify-track", spotifyRoutes);
 app.use("/contact", contactRoutes);
 app.use("/resume", resumeRoutes);
