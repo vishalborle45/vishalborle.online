@@ -76,11 +76,14 @@ export default function Contact() {
       setBusy(true);
       setError("");
 
-      const response = await axios.post(`http://localhost:3000/contact`, {
-        name: form.name,
-        email: form.email,
-        message: form.message,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/contact`,
+        {
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        },
+      );
 
       if (response.data.success) {
         setSent(true);
